@@ -27,13 +27,10 @@ dependencies {
     implementation("io.rest-assured:json-path:5.5.1")
 // https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
     implementation("io.rest-assured:json-schema-validator:5.5.1")
-// https://mvnrepository.com/artifact/org.assertj/assertj-core
-    testImplementation("org.assertj:assertj-core:4.0.0-M1")
-
 }
 
 test {
-    useJUnitPlatform()
+    useJUnit()
     systemProperty "cucumber.filter.tags", System.getProperty("cucumber.filter.tags")
 }
 configurations {

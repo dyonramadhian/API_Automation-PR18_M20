@@ -5,13 +5,14 @@ import helper.Utility;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.junit.Assert;
 
 import java.io.File;
 import java.util.List;
 
 import static helper.Models.*;
-import static org.assertj.core.api.Assertions.assertThat;
-
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.isOneOf;
 
 public class ApiPage {
 
@@ -39,7 +40,7 @@ public class ApiPage {
     }
 
     public void verificationStatusCodeShouldBe(int status_code) {
-        assertThat(res.statusCode()).isEqualTo(status_code);
+        Assert.assertEquals(res.statusCode(), status_code);
     }
 
     public void verificationMessageShouldBeSuccess() {
@@ -49,11 +50,15 @@ public class ApiPage {
         List<Object> gender = res.jsonPath().getList("gender");
         List<Object> status = res.jsonPath().getList("status");
 
-        assertThat(id.get(0)).isNotNull();
-        assertThat(name.get(0)).isNotNull();
-        assertThat(email.get(0)).isNotNull();
-        assertThat(gender.get(0)).isIn("female", "male");
-        assertThat(status.get(0)).isIn("active", "inactive");
+        Assert.assertNotNull(id.get(0));
+        Assert.assertNotNull(name.get(0));
+        Assert.assertNotNull(email.get(0));
+        Assert.assertNotNull(gender.get(0));
+        Assert.assertNotNull(status.get(0));
+
+        assertThat(status.get(0), isOneOf("active", "inactive"));
+        assertThat(gender.get(0), isOneOf("female", "male"));
+
     }
 
     public void verificationResponseJsonWithJSONSchema(String filename) {
@@ -73,11 +78,14 @@ public class ApiPage {
         String gender = jsonPathEvaluator.get("gender");
         String status = jsonPathEvaluator.get("status");
 
-        assertThat(id).isNotNull();
-        assertThat(name).isNotNull();
-        assertThat(email).isNotNull();
-        assertThat(gender).isIn("female", "male");
-        assertThat(status).isIn("active", "inactive");
+        Assert.assertNotNull(id);
+        Assert.assertNotNull(name);
+        Assert.assertNotNull(email);
+        Assert.assertNotNull(gender);
+        Assert.assertNotNull(status);
+
+        assertThat(status, isOneOf("active", "inactive"));
+        assertThat(gender, isOneOf("female", "male"));
 
         global_id = Integer.toString(id);
     }
@@ -100,13 +108,16 @@ public class ApiPage {
         String gender = jsonPathEvaluator.get("gender");
         String status = jsonPathEvaluator.get("status");
 
-        assertThat(id).isNotNull();
-        assertThat(name).isNotNull();
-        assertThat(email).isNotNull();
-        assertThat(gender).isIn("female", "male");
-        assertThat(status).isIn("active", "inactive");
+
+        Assert.assertNotNull(id);
+        Assert.assertNotNull(name);
+        Assert.assertNotNull(email);
+        Assert.assertNotNull(gender);
+        Assert.assertNotNull(status);
+        assertThat(status, isOneOf("active", "inactive"));
+        assertThat(gender, isOneOf("female", "male"));
+
+
     }
 }
-
-//        System.out.println(res.getBody().asString());
 
