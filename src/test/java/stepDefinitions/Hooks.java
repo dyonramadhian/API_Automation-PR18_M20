@@ -1,7 +1,4 @@
-package StepDefinitions;
-
-import io.cucumber.java.BeforeAll;
-import org.junit.Before;
+package stepDefinitions;
 
 //public class Hooks {
 //    @BeforeAll
